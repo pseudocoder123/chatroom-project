@@ -42,6 +42,12 @@ html{
 html,body{
     height : 100%;
 }
+html{
+  background-color : grey;
+  background-image : url("https://newmediaservices.com.au/wp-content/uploads/2019/03/Chat.png");
+  /* background-repeat : no-repeat; */
+  background-size: 55% 100%;
+}
 body {
   margin: 0 auto;
   max-width: 800px;
@@ -81,8 +87,8 @@ h2{
 }
 
 .anyClass{
-  height : 525px;
-  overflow-y : scroll;
+  height : 500px;
+  overflow-y : auto;
 }
 </style>
 </head>
@@ -126,10 +132,10 @@ setInterval(runFunction, 1000);
 		$.post("htcont.php", {room: '<?php echo $roomname; ?>'},
 			function(data, status)
 			{
-					document.getElementsByClassName('anyClass')[0].innerHTML = data;
+				document.getElementsByClassName('anyClass')[0].innerHTML = data;  
 			}
 		)
-	}
+  }
 
 	// Enter key for submit
   var input = document.getElementById("usermsg");
@@ -138,17 +144,23 @@ setInterval(runFunction, 1000);
   if (event.keyCode === 13) {
     document.getElementById("submitmsg").click();
   }
+
+  $('.anyClass').animate({scrollTop:2000000},"slow");
+
 });
 
   //If user submit the form
 	$("#submitmsg").click(function(){
 		var clientmsg = $("#usermsg").val();
+    if(/\S/.test(clientmsg)){
     $.post("postmsg.php", {text: clientmsg, room:'<?php echo $roomname; ?>', ip: '<?php echo $_SERVER['REMOTE_ADDR']; ?>'},
 		function(data, status){
 		document.getElementsByClassName('anyClass')[0].innerHTML = data;});
-		$("#usermsg").val("");  // makes the message to disappear after sent
+    $("#usermsg").val("");  // makes the message to disappear after sent
 		return false;
+    }
   }); 
+  
 </script>
 
 </body>

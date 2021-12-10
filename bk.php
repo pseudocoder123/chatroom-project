@@ -40,7 +40,10 @@ if($result)
     }
     else{
         // We should insert the roomname into our database
-        $sql = "INSERT INTO `rooms` (`roomname`, `stime`) VALUES ('$room', current_timestamp());";
+        $date = date_default_timezone_set('Asia/Kolkata');
+        $today = date("Y-m-d  H:i:s");
+
+        $sql = "INSERT INTO `rooms` (`roomname`, `stime`) VALUES ('$room', '$today');";
         // After inserting the room, let the user know
         $result = mysqli_query($connec,$sql);
         if($result){
